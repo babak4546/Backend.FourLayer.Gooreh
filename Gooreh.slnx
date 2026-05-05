@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Src/" />
+  <Folder Name="/Src/1-Core/">
+    <Project Path="GoorehDomain/GoorehDomain.csproj" Id="19811038-4363-49a4-b652-9aa60bec7f83" />
+  </Folder>
+  <Folder Name="/Src/2-Application/">
+    <Project Path="GoorehApplication/GoorehApplication.csproj" Id="487be166-607c-4241-97ad-7fb7d4c0219c" />
+  </Folder>
+  <Folder Name="/Src/3-Infrastructure/">
+    <Project Path="GoorehInfrastructure/GoorehInfrastructure.csproj" Id="d084e71b-c2d6-4d40-b580-3b3e894edb53" />
+  </Folder>
+  <Folder Name="/Src/4-API/">
+    <Project Path="GoorehApi/GoorehApi.csproj" Id="24a02dc5-52c3-4d95-ba43-990580db2189" />
+  </Folder>
+</Solution>
