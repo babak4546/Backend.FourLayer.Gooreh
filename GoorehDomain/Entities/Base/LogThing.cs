@@ -8,5 +8,6 @@ namespace GoorehDomain.Entities.Base
     {
         public int Id { get; set; }
         public string LogGuid { get; set; } = System.Guid.NewGuid().ToString();
+        public DateTime? LogDate { get; set; } = DateTime.Now;
     }
 }

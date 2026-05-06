@@ -1,3 +1,4 @@
+using GoorehApi.Endpoints.Logs;
 using GoorehApi.Endpoints.Users;
 using GoorehApplication.Services.SecurityService;
 using GoorehInfrastructure.DbContextes;
@@ -20,6 +21,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+app.MapUsersLogEndpoints();
 app.MapUserEndpoints();
 app.Run();
 
