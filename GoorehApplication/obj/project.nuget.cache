@@ -16,5 +16,15 @@
     "C:\\Users\\RiMo\\.nuget\\packages\\microsoft.extensions.options\\10.0.7\\microsoft.extensions.options.10.0.7.nupkg.sha512",
     "C:\\Users\\RiMo\\.nuget\\packages\\microsoft.extensions.primitives\\10.0.7\\microsoft.extensions.primitives.10.0.7.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
+      "projectPath": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehApplication\\GoorehApplication.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehApplication\\GoorehApplication.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GoorehApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+57c4bda732a543186dbff83e8386f3f03301bf18")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56d1947c3ed99e8dcfacb2689e820ae451abdc43")]
 [assembly: System.Reflection.AssemblyProductAttribute("GoorehApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GoorehApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

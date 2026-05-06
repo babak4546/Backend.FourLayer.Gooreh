@@ -87,7 +87,7 @@ namespace GoorehApi.Endpoints.Users
                     // tedad dafaat vard kaardan password eshtebah 
                     user.AccessFailedCount++;
                     //  shart dovom migheh ageh ye karbar khas megdar LockoutEnabled== ture bood lock nasheh
-                    if (user.AccessFailedCount >= 5  && user.LockoutEnabled == true)
+                    if (user.AccessFailedCount >= 5  && user.IsLockedUp == true)
                     {
                         user.LockoutEnd = DateTime.Now.AddSeconds(15); 
                         await db.SaveChangesAsync();
@@ -295,7 +295,7 @@ namespace GoorehApi.Endpoints.Users
                     });
                 }
                 user.UserType = UserTypeEnum.AppAdmin;
-                user.LockoutEnabled = false;
+                user.IsLockedUp = false;
                 await db.SaveChangesAsync();
                 return Results.Ok();
             });

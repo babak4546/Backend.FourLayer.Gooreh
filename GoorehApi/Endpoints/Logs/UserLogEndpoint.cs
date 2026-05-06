@@ -6,7 +6,7 @@ namespace GoorehApi.Endpoints.Logs
 {
     public static class UserLogEndpoint
     {
-        public static async Task<IEndpointRouteBuilder> MapUsersLogEndpoints(this IEndpointRouteBuilder app)
+        public static  IEndpointRouteBuilder MapUsersLogEndpoints(this IEndpointRouteBuilder app)
         {
             var group = app.MapGroup("/userlogs");
 

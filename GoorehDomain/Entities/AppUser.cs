@@ -20,7 +20,7 @@ namespace GoorehDomain.Entities
         public string? Salt { get; set; }
         public int AccessFailedCount { get; set; } = 0;
         public DateTime? LockoutEnd { get; set; }
-        public bool LockoutEnabled { get; set; } = true;
+        public bool IsLockedUp { get; set; } = true;
         public string UserTypes
         {
             get

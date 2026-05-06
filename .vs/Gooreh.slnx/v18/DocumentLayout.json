@@ -7,12 +7,20 @@
       "RelativeMoniker": "D:0:0:{24A02DC5-52C3-4D95-BA43-990580DB2189}|GoorehApi\\GoorehApi.csproj|solutionrelative:goorehapi\\endpoints\\logs\\userlogendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{24A02DC5-52C3-4D95-BA43-990580DB2189}|GoorehApi\\GoorehApi.csproj|c:\\users\\rimo\\desktop\\gooreh\\goorehapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24A02DC5-52C3-4D95-BA43-990580DB2189}|GoorehApi\\GoorehApi.csproj|solutionrelative:goorehapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{24A02DC5-52C3-4D95-BA43-990580DB2189}|GoorehApi\\GoorehApi.csproj|c:\\users\\rimo\\desktop\\gooreh\\goorehapi\\endpoints\\users\\userendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{24A02DC5-52C3-4D95-BA43-990580DB2189}|GoorehApi\\GoorehApi.csproj|solutionrelative:goorehapi\\endpoints\\users\\userendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{24A02DC5-52C3-4D95-BA43-990580DB2189}|GoorehApi\\GoorehApi.csproj|c:\\users\\rimo\\desktop\\gooreh\\goorehapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{24A02DC5-52C3-4D95-BA43-990580DB2189}|GoorehApi\\GoorehApi.csproj|solutionrelative:goorehapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D084E71B-C2D6-4D40-B580-3B3E894EDB53}|GoorehInfrastructure\\GoorehInfrastructure.csproj|c:\\users\\rimo\\desktop\\gooreh\\goorehinfrastructure\\goorehinfrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D084E71B-C2D6-4D40-B580-3B3E894EDB53}|GoorehInfrastructure\\GoorehInfrastructure.csproj|solutionrelative:goorehinfrastructure\\goorehinfrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19811038-4363-49A4-B652-9AA60BEC7F83}|GoorehDomain\\GoorehDomain.csproj|c:\\users\\rimo\\desktop\\gooreh\\goorehdomain\\entities\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19811038-4363-49A4-B652-9AA60BEC7F83}|GoorehDomain\\GoorehDomain.csproj|solutionrelative:goorehdomain\\entities\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{19811038-4363-49A4-B652-9AA60BEC7F83}|GoorehDomain\\GoorehDomain.csproj|c:\\users\\rimo\\desktop\\gooreh\\goorehdomain\\entities\\base\\logthing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,11 +37,41 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "GoorehInfrastructure",
+              "DocumentMoniker": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehInfrastructure\\GoorehInfrastructure.csproj",
+              "RelativeDocumentMoniker": "GoorehInfrastructure\\GoorehInfrastructure.csproj",
+              "ToolTip": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehInfrastructure\\GoorehInfrastructure.csproj",
+              "RelativeToolTip": "GoorehInfrastructure\\GoorehInfrastructure.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-06T23:01:23.677Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AppUser.cs",
+              "DocumentMoniker": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehDomain\\Entities\\AppUser.cs",
+              "RelativeDocumentMoniker": "GoorehDomain\\Entities\\AppUser.cs",
+              "ToolTip": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehDomain\\Entities\\AppUser.cs",
+              "RelativeToolTip": "GoorehDomain\\Entities\\AppUser.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAwwBUAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T22:51:55.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "LogThing.cs",
               "DocumentMoniker": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehDomain\\Entities\\Base\\LogThing.cs",
               "RelativeDocumentMoniker": "GoorehDomain\\Entities\\Base\\LogThing.cs",
@@ -46,30 +84,25 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "dbo.UserLogDatas [Data]",
+              "DocumentIndex": 6,
+              "Title": "dbo.UserLogDatas.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/Gooreh.sec/True/SqlTable/dbo.UserLogDatas.sql",
-              "ToolTip": "dbo.UserLogDatas [Data]",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/Gooreh.sec/True/SqlTable/dbo.UserLogDatas.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-05-06T21:07:24.736Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-06T21:07:24.736Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehApi\\Program.cs",
               "RelativeDocumentMoniker": "GoorehApi\\Program.cs",
               "ToolTip": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehApi\\Program.cs",
               "RelativeToolTip": "GoorehApi\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-06T20:54:35.556Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
@@ -79,20 +112,20 @@
               "RelativeDocumentMoniker": "GoorehApi\\Endpoints\\Logs\\UserLogEndpoint.cs",
               "ToolTip": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehApi\\Endpoints\\Logs\\UserLogEndpoint.cs",
               "RelativeToolTip": "GoorehApi\\Endpoints\\Logs\\UserLogEndpoint.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAIA1wA4AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAgAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-06T20:32:54.082Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UserEndpoint.cs",
               "DocumentMoniker": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehApi\\Endpoints\\Users\\UserEndpoint.cs",
               "RelativeDocumentMoniker": "GoorehApi\\Endpoints\\Users\\UserEndpoint.cs",
               "ToolTip": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehApi\\Endpoints\\Users\\UserEndpoint.cs",
               "RelativeToolTip": "GoorehApi\\Endpoints\\Users\\UserEndpoint.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAcBAAAAAAAAAAAAACYBAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-06T20:24:56.159Z",
               "EditorCaption": ""
