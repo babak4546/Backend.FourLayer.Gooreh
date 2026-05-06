@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GoorehDomain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+314c4ce9b13656fbc0268592c459c05e2e3f4b8b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bff96855ed5dff4938f94f74ff894c995d428f04")]
 [assembly: System.Reflection.AssemblyProductAttribute("GoorehDomain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GoorehDomain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

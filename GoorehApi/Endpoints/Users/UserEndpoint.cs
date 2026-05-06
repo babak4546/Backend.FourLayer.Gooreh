@@ -42,6 +42,9 @@ namespace GoorehApi.Endpoints.Users
                 user.PhoneNumber = userDto.PhoneNumber;
                 user.PasswordHash = hashed;
                 user.Salt = salt;
+                user.RemovedIn = null;
+                user.RestoredIn = null;
+                user.LockoutEnd = null;
                 await db.AppUsers.AddAsync(user);
                 await db.SaveChangesAsync();
                 return Results.Ok(new
@@ -72,6 +75,8 @@ namespace GoorehApi.Endpoints.Users
                         IsOk = false
                     });
                 }
+                user.LockoutEnd = null;
+                await db.SaveChangesAsync();   
                 // ba IConfiguration config beh file appsettings.json dastresi peyda mikonam va megdar pepper ro mikhonam
                 var pepper = config["Security:MyPepper"];
                 // inja ba password va salt keh az Db miad va pepper hash misazam

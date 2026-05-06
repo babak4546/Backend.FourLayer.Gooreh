@@ -14,7 +14,7 @@ namespace GoorehDomain.Entities
         public string? NormalizedUsername { get; set; }
         public string? PasswordHash { get; set; }
         public UserTypeEnum UserType { get; set; } = UserTypeEnum.BoxUser;
-        public DateTime RemovedIn { get; set; }
+        public DateTime? RemovedIn { get; set; }
         public DateTime? RestoredIn { get; set; }
         public bool IsRemoved { get; set; }
         public string? Salt { get; set; }
