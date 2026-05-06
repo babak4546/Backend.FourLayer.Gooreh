@@ -30,6 +30,9 @@ namespace GoorehInfrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedIn")
                         .HasColumnType("datetime2");
 
@@ -48,6 +51,12 @@ namespace GoorehInfrastructure.Migrations
 
                     b.Property<string>("Lastname")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LockoutEnd")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("NormalizedUsername")
                         .HasColumnType("nvarchar(max)");

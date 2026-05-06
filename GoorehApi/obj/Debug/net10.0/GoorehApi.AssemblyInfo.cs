@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GoorehApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+314c4ce9b13656fbc0268592c459c05e2e3f4b8b")]
 [assembly: System.Reflection.AssemblyProductAttribute("GoorehApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GoorehApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

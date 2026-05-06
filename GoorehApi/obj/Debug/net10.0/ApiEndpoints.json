@@ -126,6 +126,28 @@
   },
   {
     "ContainingType": "GoorehApi.Endpoints.Users.UserEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapUserEndpoints\u003Eb__0_8",
+    "RelativePath": "users/makeadmin{id}",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GoorehApi.Endpoints.Users.UserEndpoint\u002B\u003C\u003Ec",
     "Method": "\u003CMapUserEndpoints\u003Eb__0_6",
     "RelativePath": "users/restore/{guid}",
     "HttpMethod": "PUT",

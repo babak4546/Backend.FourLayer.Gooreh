@@ -13,11 +13,14 @@ namespace GoorehDomain.Entities
         public string? Username { get; set; }
         public string? NormalizedUsername { get; set; }
         public string? PasswordHash { get; set; }
-        public UserTypeEnum UserType { get; set; }
+        public UserTypeEnum UserType { get; set; } = UserTypeEnum.BoxUser;
         public DateTime RemovedIn { get; set; }
         public DateTime? RestoredIn { get; set; }
         public bool IsRemoved { get; set; }
         public string? Salt { get; set; }
+        public int AccessFailedCount { get; set; } = 0;
+        public DateTime? LockoutEnd { get; set; }
+        public bool LockoutEnabled { get; set; } = true;
         public string UserTypes
         {
             get

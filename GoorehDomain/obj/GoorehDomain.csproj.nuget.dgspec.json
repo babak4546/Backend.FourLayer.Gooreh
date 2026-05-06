@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\RiMo\\Desktop\\AspRefreshing\\Gooreh\\GoorehDomain\\GoorehDomain.csproj": {}
+    "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehDomain\\GoorehDomain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\RiMo\\Desktop\\AspRefreshing\\Gooreh\\GoorehDomain\\GoorehDomain.csproj": {
+    "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehDomain\\GoorehDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\RiMo\\Desktop\\AspRefreshing\\Gooreh\\GoorehDomain\\GoorehDomain.csproj",
+        "projectUniqueName": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehDomain\\GoorehDomain.csproj",
         "projectName": "GoorehDomain",
-        "projectPath": "C:\\Users\\RiMo\\Desktop\\AspRefreshing\\Gooreh\\GoorehDomain\\GoorehDomain.csproj",
+        "projectPath": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehDomain\\GoorehDomain.csproj",
         "packagesPath": "C:\\Users\\RiMo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\RiMo\\Desktop\\AspRefreshing\\Gooreh\\GoorehDomain\\obj\\",
+        "outputPath": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehDomain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

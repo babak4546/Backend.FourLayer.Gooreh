@@ -2,6 +2,7 @@
 using GoorehApi.Tools;
 using GoorehApplication.DTOs.AuthDtos;
 using GoorehDomain.Entities;
+using GoorehDomain.Enums;
 using GoorehInfrastructure.DbContextes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace GoorehApi.Endpoints.Users
 
             var group = app.MapGroup("/users");
 
-            group.MapPost("/signup{ip}", async (GoorehDbContext db, IConfiguration config, [FromBody] UserSignupRequestDto userDto) =>
+            group.MapPost("/signup", async (GoorehDbContext db, IConfiguration config, [FromBody] UserSignupRequestDto userDto) =>
             {
                 var salt = HashingPassword.GenerateSalt();
                 var pepper = config["Security:MyPepper"];
@@ -48,9 +49,10 @@ namespace GoorehApi.Endpoints.Users
                     Msg = "ثبت نام انجام شد"
                 });
             });
-
+            
             group.MapPost("/login", async (GoorehDbContext db, IConfiguration config, [FromBody] UserLoginRequestDto userDto) =>
             {
+                
                 var user = await db.AppUsers.FirstOrDefaultAsync(u => u.Username == userDto.UserName);
                 if (user == null)
                 {
@@ -60,42 +62,78 @@ namespace GoorehApi.Endpoints.Users
                         IsOk = false
                     });
                 }
-               
+                // ageh LockoutEnd (DateTime) megdar dashteh basheh va LockoutEnd megdarsh az lahzeh 
+                // ejraye dobarehye endPoint bishtar basheh badRequest Mideh
+                if (user.LockoutEnd.HasValue && user.LockoutEnd > DateTime.Now)
+                {
+                    return Results.BadRequest(new
+                    {
+                        Msg = "حساب شما موقتاً قفل شده است. لطفاً چند ثانیه بعد دوباره تلاش کنید.",
+                        IsOk = false
+                    });
+                }
+                // ba IConfiguration config beh file appsettings.json dastresi peyda mikonam va megdar pepper ro mikhonam
                 var pepper = config["Security:MyPepper"];
-                var hashedPassword = HashingPassword.HashPassword(userDto.Password,user.Salt??"",pepper??"");
-
+                // inja ba password va salt keh az Db miad va pepper hash misazam
+                var hashedPassword = HashingPassword.HashPassword(userDto.Password, user.Salt ?? "", pepper ?? "");
+                
                 if (hashedPassword != user.PasswordHash)
                 {
+                    // tedad dafaat vard kaardan password eshtebah 
+                    user.AccessFailedCount++;
+                    //  shart dovom migheh ageh ye karbar khas megdar LockoutEnabled== ture bood lock nasheh
+                    if (user.AccessFailedCount >= 5  && user.LockoutEnabled == true)
+                    {
+                        user.LockoutEnd = DateTime.Now.AddSeconds(15); 
+                        await db.SaveChangesAsync();
+
+                        return Results.BadRequest(new
+                        {
+                            Msg = "به دلیل تلاش‌های زیاد، حساب شما برای 15 ثانیه قفل شد.",
+                            IsOk = false
+                        });
+                    }
+
+                    await db.SaveChangesAsync();
+
                     return Results.NotFound(new
                     {
                         Msg = "نام کاربری یا رمز عبور اشتباه می باشد",
                         IsOk = false
                     });
                 }
+
+                // meghdar AccessFailedCount reset misheh va LockoutEnd ham null
+                user.AccessFailedCount = 0;
+                user.LockoutEnd = null;
+
                 db.UserLogDatas.Add(new UserLogData
                 {
                     Action = "login",
                     AppUserId = user.Id,
-                    LogedIn = DateTime.Now,
+                    LogedIn = DateTime.Now, 
                 });
+
                 await db.SaveChangesAsync();
+
+                
                 var claims = new[]
                 {
-                  new Claim("Firstname",user.Firstname??"".ToString()),
-                  new Claim("UserType",user.UserType.ToString()),
-                  new Claim("Guid",user.Guid.ToString()),
+        new Claim("Firstname", user.Firstname ?? ""),
+        new Claim("UserType", user.UserType.ToString()),
+        new Claim("Guid", user.Guid.ToString()),
+    };
 
-                };
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"] ?? ""));
-
                 var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var token = new JwtSecurityToken(
 
-                  config["Jwt:Issuer"],
-                  config["Jwt:Audience"],
-                  claims,
-                  expires: DateTime.UtcNow.AddDays(3),
-                  signingCredentials: signIn);
+                var token = new JwtSecurityToken(
+                    config["Jwt:Issuer"],
+                    config["Jwt:Audience"],
+                    claims,
+                    expires: DateTime.UtcNow.AddDays(3),
+                    signingCredentials: signIn
+                );
 
                 return Results.Ok(new UserLoginResponseDto
                 {
@@ -105,6 +143,7 @@ namespace GoorehApi.Endpoints.Users
                     ExpiresIn = token.ValidTo.ToString(),
                 });
             });
+
 
             group.MapDelete("/delete/{guid}", async (GoorehDbContext db, string guid, ClaimsPrincipal claim) =>
             {
@@ -239,6 +278,22 @@ namespace GoorehApi.Endpoints.Users
                     msg = false
                 });
             }).RequireAuthorization();
+            //baraye test Lockout
+            group.MapPost("/makeadmin{id}", async (GoorehDbContext db, string id) =>
+            {
+                var user = await db.AppUsers.FirstOrDefaultAsync(s => s.Guid == id);
+                if (user == null)
+                {
+                    return Results.NotFound(new
+                    {
+                        msg = "کاربر یافت نشد "
+                    });
+                }
+                user.UserType = UserTypeEnum.AppAdmin;
+                user.LockoutEnabled = false;
+                await db.SaveChangesAsync();
+                return Results.Ok();
+            });
             return app;
         }
     }
