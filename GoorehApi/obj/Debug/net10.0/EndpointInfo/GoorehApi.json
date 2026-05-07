@@ -10,7 +10,7 @@
     }
   ],
   "paths": {
-    "/userlogs/list{by}": {
+    "/userlogs/list/{by}": {
       "post": {
         "tags": [
           "GoorehApi"
@@ -32,7 +32,58 @@
         }
       }
     },
-    "/userlogs/find{id}": {
+    "/userlogs/byuser/{guid}": {
+      "post": {
+        "tags": [
+          "GoorehApi"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/userlogs/byuser/sorted/{guid}": {
+      "post": {
+        "tags": [
+          "GoorehApi"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/userlogs/find/{id}": {
       "post": {
         "tags": [
           "GoorehApi"
@@ -164,7 +215,7 @@
         }
       }
     },
-    "/users/logout{id}": {
+    "/users/logout/{id}": {
       "post": {
         "tags": [
           "GoorehApi"
@@ -220,7 +271,7 @@
         }
       }
     },
-    "/users/makeadmin{id}": {
+    "/users/makeadmin/{id}": {
       "post": {
         "tags": [
           "GoorehApi"

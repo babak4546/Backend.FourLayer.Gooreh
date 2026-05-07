@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kIIjS+G+/bg=",
+  "dgSpecHash": "3QYZMUHCD1E=",
   "success": true,
   "projectFilePath": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehInfrastructure\\GoorehInfrastructure.csproj",
   "expectedPackageFiles": [
@@ -41,15 +41,5 @@
     "C:\\Users\\RiMo\\.nuget\\packages\\system.security.cryptography.pkcs\\9.0.4\\system.security.cryptography.pkcs.9.0.4.nupkg.sha512",
     "C:\\Users\\RiMo\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.4\\system.security.cryptography.protecteddata.9.0.4.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
-      "projectPath": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehInfrastructure\\GoorehInfrastructure.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\RiMo\\Desktop\\Gooreh\\GoorehInfrastructure\\GoorehInfrastructure.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

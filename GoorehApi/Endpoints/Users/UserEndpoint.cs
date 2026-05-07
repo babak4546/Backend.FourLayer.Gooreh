@@ -55,8 +55,8 @@ namespace GoorehApi.Endpoints.Users
             
             group.MapPost("/login", async (GoorehDbContext db, IConfiguration config, [FromBody] UserLoginRequestDto userDto) =>
             {
-                
-                var user = await db.AppUsers.FirstOrDefaultAsync(u => u.Username == userDto.UserName);
+                var concurrency = ConcurrencyCheck.Concurrency(userDto.UserName);
+                var user = await db.AppUsers.FirstOrDefaultAsync(u => u.UpperUsername == concurrency);
                 if (user == null)
                 {
                     return Results.BadRequest(new
@@ -116,18 +116,19 @@ namespace GoorehApi.Endpoints.Users
                 {
                     Action = "login",
                     AppUserId = user.Id,
-                    LogedIn = DateTime.Now, 
+                    LogedIn=DateTime.Now,
+                    LogDate = DateTime.Now,
                 });
 
                 await db.SaveChangesAsync();
 
-                
+
                 var claims = new[]
                 {
-        new Claim("Firstname", user.Firstname ?? ""),
-        new Claim("UserType", user.UserType.ToString()),
-        new Claim("Guid", user.Guid.ToString()),
-    };
+                     new Claim("Firstname", user.Firstname ?? ""),
+                     new Claim("UserType", user.UserType.ToString()),
+                     new Claim("Guid", user.Guid.ToString()),
+                 };
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"] ?? ""));
                 var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -165,9 +166,11 @@ namespace GoorehApi.Endpoints.Users
 
                     await db.UserLogDatas.AddAsync(new UserLogData
                     {
-                        Action = " Action " + " delete " + " OnUsername= " + user.Username + " OnFirstname= " + user.Firstname + " OnLastname= " + user.Lastname + " DeletedBy= " + deletedBy,
+                        //faghat baraye test to db baraye :OnUsername ,delete ,OnFirstname, restoredBy ,ActOnGuid jadval nasakhtam 
+
+                        Action = " Action " + " delete " + " OnUsername= " + user.Username + " OnFirstname= " + user.Firstname + " OnLastname= " + user.Lastname + " DeletedBy= " + deletedBy + " ActOnGuid= " + guid,
                         AppUserId = deletedByUser.Id,
-                        LoggedOut = DateTime.Now,
+                        LogDate = DateTime.Now,
 
                     });
                     //db.AppUsers.Remove(user);
@@ -182,7 +185,7 @@ namespace GoorehApi.Endpoints.Users
             group.MapPut("/edit/{id}", async (GoorehDbContext db, IConfiguration config, string id, UserEditRequestDto userDto) =>
             {
                 var salt = HashingPassword.GenerateSalt();
-                var pepper = config["Security:Pepper"];
+                var pepper = config["Security:MyPepper"];
                 var hashed = HashingPassword.HashPassword(userDto.Password,salt,pepper??"");
                 var usernameConcurrency = ConcurrencyCheck.Concurrency(userDto.Username);
 
@@ -218,15 +221,17 @@ namespace GoorehApi.Endpoints.Users
             {
                 return Results.Ok(db.AppUsers.Where(s => s.IsRemoved == false).ToList());
             });
-            group.MapPost("/logout{id}", async (GoorehDbContext db, string id) =>
+            group.MapPost("/logout/{id}", async (GoorehDbContext db, string id) =>
             {
                 var user = await db.AppUsers.FirstOrDefaultAsync(s => s.Guid == id);
                 if (user != null)
                 {
                     await db.UserLogDatas.AddAsync(new UserLogData
                     {
+
                         Action = "logout",
                         AppUserId = user.Id,
+                        LogDate = DateTime.Now,
                         LoggedOut = DateTime.Now,
                     });
                     await db.SaveChangesAsync();
@@ -254,9 +259,12 @@ namespace GoorehApi.Endpoints.Users
                     await db.UserLogDatas.AddAsync
                        (new UserLogData
                        {
-                           Action = " Action " + " restore " + " OnUsername= " + user.Username + " OnFirstname= " + user.Firstname + " OnLastname= " + user.Lastname + " restoredBy= " + restoredBy,
+                           //faghat baraye test to db baraye :OnUsername ,restore ,OnFirstname, restoredBy ,ActOnGuid jadval nasakhtam 
+
+                           Action = " Action " + " restore " + " OnUsername= " + user.Username + " OnFirstname= " + user.Firstname + " OnLastname= " + user.Lastname + " restoredBy= " + restoredBy + "ActOnGuid= " + guid,
                            AppUserId = restoredByUser.Id,
-                           LoggedOut = DateTime.Now,
+                           LogDate = DateTime.Now,
+                          
 
                        });
                     //db.AppUsers.Remove(user);
@@ -284,7 +292,7 @@ namespace GoorehApi.Endpoints.Users
                 });
             }).RequireAuthorization();
             //baraye test Lockout
-            group.MapPost("/makeadmin{id}", async (GoorehDbContext db, string id) =>
+            group.MapPost("/makeadmin/{id}", async (GoorehDbContext db, string id) =>
             {
                 var user = await db.AppUsers.FirstOrDefaultAsync(s => s.Guid == id);
                 if (user == null)

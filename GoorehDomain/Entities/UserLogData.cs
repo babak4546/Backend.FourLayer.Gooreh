@@ -10,6 +10,7 @@ namespace GoorehDomain.Entities
         public DateTime? LogedIn { get; set; }
         public DateTime? LoggedOut { get; set; }
         public required string Action { get; set; }
+        //public  string?  DoneByGuid { get; set; }
         public string? IpAddr { get; set; } = "IpIsEmpty";
         public string? SysInfo { get; set; } = "SysInfoIsNull";
     }

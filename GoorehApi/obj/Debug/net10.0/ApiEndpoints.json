@@ -2,7 +2,56 @@
   {
     "ContainingType": "GoorehApi.Endpoints.Logs.UserLogEndpoint\u002B\u003C\u003Ec",
     "Method": "\u003CMapUsersLogEndpoints\u003Eb__0_1",
-    "RelativePath": "userlogs/find{id}",
+    "RelativePath": "userlogs/byuser/{guid}",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guid",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GoorehApi.Endpoints.Logs.UserLogEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapUsersLogEndpoints\u003Eb__0_2",
+    "RelativePath": "userlogs/byuser/sorted/{guid}",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guid",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "sort",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GoorehApi.Endpoints.Logs.UserLogEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapUsersLogEndpoints\u003Eb__0_3",
+    "RelativePath": "userlogs/find/{id}",
     "HttpMethod": "POST",
     "IsController": false,
     "Order": 0,
@@ -24,7 +73,7 @@
   {
     "ContainingType": "GoorehApi.Endpoints.Logs.UserLogEndpoint\u002B\u003C\u003Ec",
     "Method": "\u003CMapUsersLogEndpoints\u003Eb__0_0",
-    "RelativePath": "userlogs/list{by}",
+    "RelativePath": "userlogs/list/{by}",
     "HttpMethod": "POST",
     "IsController": false,
     "Order": 0,
@@ -149,7 +198,7 @@
   {
     "ContainingType": "GoorehApi.Endpoints.Users.UserEndpoint\u002B\u003C\u003Ec",
     "Method": "\u003CMapUserEndpoints\u003Eb__0_5",
-    "RelativePath": "users/logout{id}",
+    "RelativePath": "users/logout/{id}",
     "HttpMethod": "POST",
     "IsController": false,
     "Order": 0,
@@ -171,7 +220,7 @@
   {
     "ContainingType": "GoorehApi.Endpoints.Users.UserEndpoint\u002B\u003C\u003Ec",
     "Method": "\u003CMapUserEndpoints\u003Eb__0_8",
-    "RelativePath": "users/makeadmin{id}",
+    "RelativePath": "users/makeadmin/{id}",
     "HttpMethod": "POST",
     "IsController": false,
     "Order": 0,
