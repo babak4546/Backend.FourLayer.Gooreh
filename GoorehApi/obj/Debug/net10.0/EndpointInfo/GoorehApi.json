@@ -105,6 +105,18 @@
         }
       }
     },
+    "/roles/list": {
+      "post": {
+        "tags": [
+          "GoorehApi"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/users/signup": {
       "post": {
         "tags": [
@@ -292,10 +304,97 @@
           }
         }
       }
+    },
+    "/users/deleteuserbyforce/{guid}": {
+      "post": {
+        "tags": [
+          "GoorehApi"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/deleteuserforce/{guid}": {
+      "post": {
+        "tags": [
+          "GoorehApi"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/updateusername/{guid}": {
+      "post": {
+        "tags": [
+          "GoorehApi"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeUsernameDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "ChangeUsernameDto": {
+        "required": [
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          }
+        }
+      },
       "UserEditRequestDto": {
         "required": [
           "firstname",

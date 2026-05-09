@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GoorehInfrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0dfea7a4664c504c51f15229e452e8912768e3cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b6854157c165a6f4c0d02444faa0e634195da4c")]
 [assembly: System.Reflection.AssemblyProductAttribute("GoorehInfrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GoorehInfrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

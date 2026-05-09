@@ -90,6 +90,40 @@ namespace GoorehInfrastructure.Migrations
                     b.ToTable("AppUsers");
                 });
 
+            modelBuilder.Entity("GoorehDomain.Entities.MiddlewareLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContextUserGuid")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContextUserIp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Guid")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Method")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("MiddleWareDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MiddlewareLogs");
+                });
+
             modelBuilder.Entity("GoorehDomain.Entities.Role", b =>
                 {
                     b.Property<int>("Id")

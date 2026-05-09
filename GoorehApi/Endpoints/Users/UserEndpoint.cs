@@ -4,6 +4,7 @@ using GoorehApplication.DTOs.AuthDtos;
 using GoorehDomain.Entities;
 using GoorehDomain.Enums;
 using GoorehInfrastructure.DbContextes;
+using GoorehInfrastructure.Migrations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -25,7 +26,7 @@ namespace GoorehApi.Endpoints.Users
                 var salt = HashingPassword.GenerateSalt();
                 var pepper = config["Security:MyPepper"];
                 var user = new AppUser();
-                var hashed = HashingPassword.HashPassword(userDto.Password,salt,pepper??"");
+                var hashed = HashingPassword.HashPassword(userDto.Password, salt, pepper ?? "");
                 var concurrency = ConcurrencyCheck.Concurrency(userDto.Username);
                 var check = await db.AppUsers.FirstOrDefaultAsync(u => u.UpperUsername == concurrency);
                 if (check != null)
@@ -52,7 +53,7 @@ namespace GoorehApi.Endpoints.Users
                     Msg = "ثبت نام انجام شد"
                 });
             });
-            
+
             group.MapPost("/login", async (GoorehDbContext db, IConfiguration config, [FromBody] UserLoginRequestDto userDto) =>
             {
                 var concurrency = ConcurrencyCheck.Concurrency(userDto.UserName);
@@ -76,20 +77,20 @@ namespace GoorehApi.Endpoints.Users
                     });
                 }
                 user.LockoutEnd = null;
-                await db.SaveChangesAsync();   
+                await db.SaveChangesAsync();
                 // ba IConfiguration config beh file appsettings.json dastresi peyda mikonam va megdar pepper ro mikhonam
                 var pepper = config["Security:MyPepper"];
                 // inja ba password va salt keh az Db miad va pepper hash misazam
                 var hashedPassword = HashingPassword.HashPassword(userDto.Password, user.Salt ?? "", pepper ?? "");
-                
+
                 if (hashedPassword != user.PasswordHash)
                 {
                     // tedad dafaat vard kaardan password eshtebah 
                     user.AccessFailedCount++;
                     //  shart dovom migheh ageh ye karbar khas megdar LockoutEnabled== ture bood lock nasheh
-                    if (user.AccessFailedCount >= 5  && user.IsLockedUp == true)
+                    if (user.AccessFailedCount >= 5 && user.IsLockedUp == true)
                     {
-                        user.LockoutEnd = DateTime.Now.AddSeconds(15); 
+                        user.LockoutEnd = DateTime.Now.AddSeconds(15);
                         await db.SaveChangesAsync();
 
                         return Results.BadRequest(new
@@ -116,7 +117,7 @@ namespace GoorehApi.Endpoints.Users
                 {
                     Action = "login",
                     AppUserId = user.Id,
-                    LogedIn=DateTime.Now,
+                    LogedIn = DateTime.Now,
                     LogDate = DateTime.Now,
                 });
 
@@ -166,7 +167,7 @@ namespace GoorehApi.Endpoints.Users
 
                     await db.UserLogDatas.AddAsync(new UserLogData
                     {
-                        //faghat baraye test to db baraye :OnUsername ,delete ,OnFirstname, restoredBy ,ActOnGuid jadval nasakhtam 
+                        //faghat baraye test, to db baraye :OnUsername ,delete ,OnFirstname, restoredBy ,ActOnGuid model nasakhtam
 
                         Action = " Action " + " delete " + " OnUsername= " + user.Username + " OnFirstname= " + user.Firstname + " OnLastname= " + user.Lastname + " DeletedBy= " + deletedBy + " ActOnGuid= " + guid,
                         AppUserId = deletedByUser.Id,
@@ -186,7 +187,7 @@ namespace GoorehApi.Endpoints.Users
             {
                 var salt = HashingPassword.GenerateSalt();
                 var pepper = config["Security:MyPepper"];
-                var hashed = HashingPassword.HashPassword(userDto.Password,salt,pepper??"");
+                var hashed = HashingPassword.HashPassword(userDto.Password, salt, pepper ?? "");
                 var usernameConcurrency = ConcurrencyCheck.Concurrency(userDto.Username);
 
                 var user = await db.AppUsers.FirstOrDefaultAsync(e => e.Guid == id);
@@ -264,7 +265,7 @@ namespace GoorehApi.Endpoints.Users
                            Action = " Action " + " restore " + " OnUsername= " + user.Username + " OnFirstname= " + user.Firstname + " OnLastname= " + user.Lastname + " restoredBy= " + restoredBy + "ActOnGuid= " + guid,
                            AppUserId = restoredByUser.Id,
                            LogDate = DateTime.Now,
-                          
+
 
                        });
                     //db.AppUsers.Remove(user);
@@ -307,7 +308,96 @@ namespace GoorehApi.Endpoints.Users
                 await db.SaveChangesAsync();
                 return Results.Ok();
             });
+            //baraye inkeh  PK AppUsers Fk UserLogData hast aval bayad log ha hazf shavand bad khode user 
+            //dar gir in sorat log ha  bayad tavasot karbar hazf beshan baad user hazf besheh 
+            group.MapPost("/deleteuserbyforce/{guid}", async (GoorehDbContext db, string guid) =>
+            {
+                var findUserByGuid = await db.AppUsers.FirstOrDefaultAsync(s => s.Guid == guid);
+                if (findUserByGuid != null)
+                {
+                    var log = await db.UserLogDatas.Where(f => f.AppUserId == findUserByGuid.Id).ToListAsync();
+                    db.RemoveRange(log);
+                    db.Remove(findUserByGuid);
+                    await db.SaveChangesAsync();
+                    return Results.Ok(new
+                    {
+                        msg = "انجام شد"
+                    });
+                }
+                return Results.NotFound();
+            });
+            //pishnahad copilot
+            group.MapPost("/deleteuserforce/{guid}", async (GoorehDbContext db, string guid) =>
+            {
+                var user = await db.AppUsers.FirstOrDefaultAsync(s => s.Guid == guid);
+                using var transaction = await db.Database.BeginTransactionAsync();
+                //rollback Transaction
+                try
+                {
+
+                    if (user == null)
+                        return Results.NotFound();
+
+                    // delete bedone load log to RAM  /az ef 7 beh bad ezafeh shodeh
+                    await db.UserLogDatas
+                        .Where(f => f.AppUserId == user.Id)
+                        .ExecuteDeleteAsync();
+
+
+                    await db.AppUsers
+                        .Where(u => u.Id == user.Id)
+                        .ExecuteDeleteAsync();
+
+                    return Results.Ok(new { msg = "انجام شد" });
+                }
+                catch
+                {
+                    await transaction.RollbackAsync();
+                }
+                return Results.NotFound();
+            });
+            group.MapPost("/updateusername/{guid}", async (GoorehDbContext db, string guid, ChangeUsernameDto usernameDto) =>
+            {
+                var user = await db.AppUsers.FirstOrDefaultAsync(s => s.Guid == guid);
+
+                if (user == null)
+                {
+                    return Results.NotFound(new
+                    {
+                        msg = "کاربر پیدا نشد"
+                    });
+                }
+
+                var newUpper = ConcurrencyCheck.Concurrency(usernameDto.Username);
+
+                // check mikoneh to db appUser Tekrari hast ya nah?
+                bool exists = await db.AppUsers
+                    .AnyAsync(s => s.UpperUsername == newUpper && s.Id != user.Id);
+
+                if (exists)
+                {
+                    return Results.BadRequest(new
+                    {
+                        msg = "نام کاربری تکراری است"
+                    });
+                }
+
+                // niazi beh db saveChange nist!
+                await db.AppUsers
+                    .Where(u => u.Guid == guid)
+                    .ExecuteUpdateAsync(s => s
+                        .SetProperty(p => p.Username, usernameDto.Username)
+                        .SetProperty(p => p.UpperUsername, newUpper)
+                    );
+
+                return Results.Ok(new
+                {
+                    msg = "انجام شد"
+                });
+            });
+
             return app;
         }
+
     }
 }

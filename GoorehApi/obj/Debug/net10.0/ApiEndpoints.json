@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "GoorehApi.Endpoints.Role.RoleEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapRoleEndpoints\u003Eb__0_0",
+    "RelativePath": "roles/list",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "GoorehApi.Endpoints.Logs.UserLogEndpoint\u002B\u003C\u003Ec",
     "Method": "\u003CMapUsersLogEndpoints\u003Eb__0_1",
     "RelativePath": "userlogs/byuser/{guid}",
@@ -113,6 +129,50 @@
     "Method": "\u003CMapUserEndpoints\u003Eb__0_2",
     "RelativePath": "users/delete/{guid}",
     "HttpMethod": "DELETE",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guid",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GoorehApi.Endpoints.Users.UserEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapUserEndpoints\u003Eb__0_9",
+    "RelativePath": "users/deleteuserbyforce/{guid}",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guid",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GoorehApi.Endpoints.Users.UserEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapUserEndpoints\u003Eb__0_10",
+    "RelativePath": "users/deleteuserforce/{guid}",
+    "HttpMethod": "POST",
     "IsController": false,
     "Order": 0,
     "Parameters": [
@@ -272,6 +332,33 @@
       {
         "Name": "userDto",
         "Type": "GoorehApplication.DTOs.AuthDtos.UserSignupRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GoorehApi.Endpoints.Users.UserEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapUserEndpoints\u003Eb__0_11",
+    "RelativePath": "users/updateusername/{guid}",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guid",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "usernameDto",
+        "Type": "GoorehApplication.DTOs.AuthDtos.ChangeUsernameDto",
         "IsRequired": true
       }
     ],

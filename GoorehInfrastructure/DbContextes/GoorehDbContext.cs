@@ -14,6 +14,7 @@ namespace GoorehInfrastructure.DbContextes
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserLogData> UserLogDatas { get; set; }
+        public DbSet<MiddlewareLog> MiddlewareLogs { get; set; }
         public override int SaveChanges()
         {
             return base.SaveChanges();
