@@ -44,8 +44,7 @@ namespace GoorehApplication.Services.SecurityService
         }
         public static void UseServises(WebApplication app)
         {
-            app.UseAuthentication();
-            app.UseAuthorization();
+            
             app.UseCors();
 
 
