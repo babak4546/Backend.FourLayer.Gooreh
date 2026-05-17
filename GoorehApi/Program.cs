@@ -1,5 +1,8 @@
-using GoorehApi.Endpoints.Logs;
+using GoorehApi.Endpoints.MyLogs;
 using GoorehApi.Endpoints.Role;
+using GoorehApi.Endpoints.UserContacts;
+using GoorehApi.Endpoints.UserNotes;
+using GoorehApi.Endpoints.UserProducts;
 using GoorehApi.Endpoints.Users;
 using GoorehApi.MyMiddleware.LogMiddlewares;
 using GoorehApi.MyMiddleware.RequireAuthMiddlewares;
@@ -38,5 +41,8 @@ app.UseAuthorization();
 app.MapUsersLogEndpoints();
 app.MapRoleEndpoints();
 app.MapUserEndpoints();
+app.MapUserNoteEndpoints();
+app.MapUserContactEndpoint();
+app.MapUserProductEndPoint();
 app.Run();
 

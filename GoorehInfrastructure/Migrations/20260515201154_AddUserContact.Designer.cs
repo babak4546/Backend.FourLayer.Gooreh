@@ -4,6 +4,7 @@ using GoorehInfrastructure.DbContextes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoorehInfrastructure.Migrations
 {
     [DbContext(typeof(GoorehDbContext))]
-    partial class GoorehDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260515201154_AddUserContact")]
+    partial class AddUserContact
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,38 +254,6 @@ namespace GoorehInfrastructure.Migrations
                     b.HasIndex("AppUserId");
 
                     b.ToTable("UserNotes");
-                });
-
-            modelBuilder.Entity("GoorehDomain.Entities.UserProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EditedIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Guid")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserProducts");
                 });
 
             modelBuilder.Entity("GoorehDomain.Entities.UserRole", b =>
