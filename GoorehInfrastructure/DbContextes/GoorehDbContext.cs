@@ -1,16 +1,24 @@
 ﻿using GoorehDomain.Entities;
 using GoorehDomain.Entities.Base;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
+using static System.Net.WebRequestMethods;
 
 namespace GoorehInfrastructure.DbContextes
 {
     public class GoorehDbContext : DbContext
     {
-        public GoorehDbContext(DbContextOptions<GoorehDbContext> o)
-            : base(o) { }
+        private readonly IHttpContextAccessor? _http;
+        public GoorehDbContext(DbContextOptions<GoorehDbContext> o, IHttpContextAccessor? http)
+            : base(o)
+        {
+            _http = http;
+        }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -19,6 +27,7 @@ namespace GoorehInfrastructure.DbContextes
         public DbSet<UserNote> UserNotes { get; set; }
         public DbSet<UserContact> UserContacts { get; set; }
         public DbSet<UserProduct> UserProducts { get; set; }
+        public DbSet<DbContextLogger> DbContextLoggers { get; set; }
         public override int SaveChanges()
         {
             BeforeSaveChanges();
@@ -38,9 +47,13 @@ namespace GoorehInfrastructure.DbContextes
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            BeforeSaveChanges();
 
             return base.SaveChangesAsync(cancellationToken);
         }
+        // Expression‑bodied  
+        //public string UserGuid => _http?.HttpContext?.User?.FindFirst("Guid")?.Value ?? "";
+        //public string   UserFirstname => _http?.HttpContext?.User?.FindFirst("Firstname")?.Value ?? "";
         private void BeforeSaveChanges()
         {
             foreach (var item in ChangeTracker.Entries<BaseThing>())
@@ -63,14 +76,20 @@ namespace GoorehInfrastructure.DbContextes
                     item.Entity.ConcurrencyStamp = Guid.NewGuid().ToString();
                 }
 
-                //else if (item.State == EntityState.Modified || item.State == EntityState.Deleted)
-                //{
-                //    item.Entity.ConcurrencyStamp = Guid.NewGuid().ToString();
-                //}
+                else if (item.State == EntityState.Modified || item.State == EntityState.Deleted)
+                {
+                    item.Entity.ConcurrencyStamp = Guid.NewGuid().ToString();
+                }
 
             }
-        }
-
+            //DbContextLoggers.Add(new DbContextLogger
+            //{
+            //    DoByUsername = UserGuid,
+            //    CreatedIn = DateTime.Now,
+            //    Guid = Guid.NewGuid().ToString(),
+            //    Title = UserFirstname
+            //});
+                }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

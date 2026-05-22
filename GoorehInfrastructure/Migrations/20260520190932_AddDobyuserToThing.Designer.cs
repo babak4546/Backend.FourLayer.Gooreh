@@ -4,6 +4,7 @@ using GoorehInfrastructure.DbContextes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoorehInfrastructure.Migrations
 {
     [DbContext(typeof(GoorehDbContext))]
-    partial class GoorehDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260520190932_AddDobyuserToThing")]
+    partial class AddDobyuserToThing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +38,9 @@ namespace GoorehInfrastructure.Migrations
 
                     b.Property<DateTime>("CreatedIn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DoByUsername")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EditedIn")
                         .HasColumnType("datetime2");
@@ -88,34 +94,6 @@ namespace GoorehInfrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers");
-                });
-
-            modelBuilder.Entity("GoorehDomain.Entities.DbContextLogger", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DoByUsername")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EditedIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Guid")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DbContextLoggers");
                 });
 
             modelBuilder.Entity("GoorehDomain.Entities.MiddlewareLog", b =>

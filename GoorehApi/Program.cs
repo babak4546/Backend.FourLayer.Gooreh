@@ -8,6 +8,7 @@ using GoorehApi.MyMiddleware.LogMiddlewares;
 using GoorehApi.MyMiddleware.RequireAuthMiddlewares;
 using GoorehApplication.Services.SecurityService;
 using GoorehInfrastructure.DbContextes;
+using GoorehInfrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,23 @@ app.UseAuthentication();
 //middleware ha default singleton hastan 
 app.UseMiddleware<RquestLogMidleware>();
 app.UseMiddleware<MyAuthMiddleWare>();
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next();
+    }
+    catch (AddValidationException ex)
+    {
+        context.Response.StatusCode = 400;
 
+        await context.Response.WriteAsJsonAsync(new
+        {
+            message = "Validation error",
+            errors = ex.Errors
+        });
+    }
+});
 app.UseAuthorization();
 
 app.MapUsersLogEndpoints();

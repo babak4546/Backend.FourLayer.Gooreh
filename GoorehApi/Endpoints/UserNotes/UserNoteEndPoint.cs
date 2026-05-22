@@ -51,12 +51,25 @@ namespace GoorehApi.Endpoints.UserNotes
                 if (user is null)
                     return Results.Unauthorized();
 
-                await rep.AuthAddAsync(req,user);
+                await rep.AuthAddAsync(req, user);
                 return Results.Ok();
             });
-            group.MapDelete("deleterepo/{id}",async(UserNoteRepository repo ,int id  ) =>
+            group.MapDelete("deleterepo/{id}", async (UserNoteRepository repo, int id) =>
             {
                 await repo.Delete(id);
+                await repo.SaveChangesAsync();
+            });
+            group.MapPut("/updaterepo{guid}", async (UserNoteRepository repo, string guid, UpdateUserNoteRequest dto) =>
+            {
+                var note = await repo.GetByGuidAsync(guid);
+                if (note != null)
+                {
+                    note.Title = dto.Title;
+                    note.Text = dto.Text;
+                    repo.Update(note);
+                }
+                await repo.SaveChangesAsync();
+                return Results.Ok(new { msg = "با موفقیت آپدیت شد" });
             });
             return app;
         }

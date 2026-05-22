@@ -56,6 +56,21 @@ namespace GoorehApi.Endpoints.UserProducts
 
                 });
             });
+            group.MapPost("/list",(GoorehDbContext db ) => {
+
+                var list = db.UserProducts.Select(x => new ListUserProductDto
+                {
+                    Title = x.Title,
+                    Value = x.Value,
+                    Guid = x.Guid,
+                    EditedIn = x.EditedIn,
+                    CreatedIn = x.CreatedIn,
+                    ConcurrencyStamp = x.ConcurrencyStamp,
+                });
+
+                return Results.Ok(list);
+            });
+
             return app;
         }
     }

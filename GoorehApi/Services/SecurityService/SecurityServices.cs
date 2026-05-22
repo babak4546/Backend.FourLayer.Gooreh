@@ -17,7 +17,7 @@ namespace GoorehApplication.Services.SecurityService
     {
         public static void AddServices(WebApplicationBuilder builder)
         {
-            
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<UserNoteRepository>();
             builder.Services.AddScoped<IGenericRepository<UserContact>,GenericRepository<UserContact>>();
             builder.Services.AddEndpointsApiExplorer();
@@ -31,7 +31,7 @@ namespace GoorehApplication.Services.SecurityService
                 => options.AddDefaultPolicy
                 (builder =>
                 builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
-
+            builder.Services.AddScoped<DbContext, GoorehDbContext>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
