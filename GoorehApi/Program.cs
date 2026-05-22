@@ -4,6 +4,7 @@ using GoorehApi.Endpoints.UserContacts;
 using GoorehApi.Endpoints.UserNotes;
 using GoorehApi.Endpoints.UserProducts;
 using GoorehApi.Endpoints.Users;
+using GoorehApi.MyMiddleware.AddExceptionMiddleWares;
 using GoorehApi.MyMiddleware.LogMiddlewares;
 using GoorehApi.MyMiddleware.RequireAuthMiddlewares;
 using GoorehApplication.Services.SecurityService;
@@ -35,24 +36,9 @@ app.UseAuthentication();
 //middleWare bayad gable az hameh ye api habasheh
 //middleware ha default singleton hastan 
 app.UseMiddleware<RquestLogMidleware>();
+app.UseMiddleware<AddExceptionMiddleWare>();
 app.UseMiddleware<MyAuthMiddleWare>();
-app.Use(async (context, next) =>
-{
-    try
-    {
-        await next();
-    }
-    catch (AddValidationException ex)
-    {
-        context.Response.StatusCode = 400;
 
-        await context.Response.WriteAsJsonAsync(new
-        {
-            message = "Validation error",
-            errors = ex.Errors
-        });
-    }
-});
 app.UseAuthorization();
 
 app.MapUsersLogEndpoints();
