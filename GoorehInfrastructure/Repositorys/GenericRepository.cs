@@ -2,6 +2,7 @@
 using GoorehApplication.RepositorysInterfaces;
 using GoorehDomain.Entities;
 using GoorehDomain.Entities.Base;
+using GoorehDomain.Interfaces;
 using GoorehInfrastructure.DbContextes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -17,9 +18,9 @@ namespace GoorehInfrastructure.Repositorys
 
         //public virtual bool AddValidate(TEntity entity)
         //{
-            //megdar pishfarz false hast baraye service haee keh
-            //az generic repository estefadeh mikonan nah repository khode entity
-            //pishfarz megdar true hast 
+        //megdar pishfarz false hast baraye service haee keh
+        //az generic repository estefadeh mikonan nah repository khode entity
+        //pishfarz megdar true hast 
         //    return true;
         //}
 
@@ -36,6 +37,7 @@ namespace GoorehInfrastructure.Repositorys
         protected readonly DbSet<TEntity> _dbSet;
 
 
+        //same
 
         public virtual async Task AddAsync(TEntity entity)
         {
@@ -51,6 +53,7 @@ namespace GoorehInfrastructure.Repositorys
 
 
             // alan addValidate hamisheh bayad ejra besheh 
+            //same as class vid
             if (this is IAddValidatorRepository<TEntity>)
             {
                 if (((IAddValidatorRepository<TEntity>)this).AddValidate(entity))
@@ -71,53 +74,82 @@ namespace GoorehInfrastructure.Repositorys
 
         }
 
-
-
-
-
-        public async virtual Task Delete(int id)
+        //same as class vid
+        public virtual async Task Delete(int id)
         {
             var entity = await GetByIdAsync(id);
+
             if (entity != null)
             {
-
-                _dbSet.Remove(entity);
+                if (entity is IVirtualRemove)
+                {
+                    ((IVirtualRemove)entity).IsRemoved = true;
+                    _dbSet.Update(entity);
+                }
+                else
+                {
+                    _dbSet.Remove(entity);
+                }
 
             }
         }
+
+
 
         public virtual IQueryable<TEntity> GetAll(int page = 0, int count = 10)
         {
             return _dbSet.Skip(page * count).Take(count);
         }
-
+        //same as class vid
 
         public virtual IQueryable<TEntity> SimpleGetAll()
         {
-            return _dbSet.AsQueryable();
+            var query = _dbSet.AsQueryable();
+            if (typeof(IVirtualRemove).IsAssignableFrom(typeof(TEntity)))
+            {
+                query = query.Where(e => ((IVirtualRemove)e).IsRemoved == false);
+            }
+            return query;
         }
-
+        //same as class vid
 
         public virtual async Task<TEntity?> GetByGuidAsync(string guid)
         {
             return await _dbSet.FirstOrDefaultAsync(s => s.Guid == guid);
         }
 
+        //same as class vid
 
         public virtual async Task<TEntity?> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.FirstOrDefaultAsync(s => s.Id == id);
         }
 
 
-
-        public void Update(TEntity entity)
+        //same as class vid
+        public virtual void Update(TEntity entity)
         {
+            if (this is IAddValidatorRepository<TEntity>)
+            {
+                if (((IAddValidatorRepository<TEntity>)this).AddValidate(entity))
+                {
+                    _dbSet.Update(entity);
+                }
+                else
+                {
+                    throw new Exception($"Invalid {entity}");
+                }
+            }
             //Validate(entity);
             //code class
-            _dbSet.Update(entity);
+            else
+            {
+                _dbSet.Update(entity);
+
+            }
 
         }
+
 
         //public virtual async Task SaveAsync() =>
 

@@ -66,6 +66,14 @@ namespace GoorehApi.Endpoints.Users
                         IsOk = false
                     });
                 }
+                if (user.IsRemoved==true)
+                {
+                    return Results.NotFound(new
+                    {
+                        msg="کاربر یافت نشد!",
+                        IsOk=false
+                    });
+                }
                 // ageh LockoutEnd (DateTime) megdar dashteh basheh va LockoutEnd megdarsh az lahzeh 
                 // ejraye dobarehye endPoint bishtar basheh badRequest Mideh
                 if (user.LockoutEnd.HasValue && user.LockoutEnd > DateTime.Now)

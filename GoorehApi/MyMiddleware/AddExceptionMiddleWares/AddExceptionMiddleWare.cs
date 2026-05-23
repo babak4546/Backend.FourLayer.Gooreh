@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GoorehApi.MyMiddleware.AddExceptionMiddleWares
 {
+    /// <summary>
+    /// middleware vabasteh hast beh request
+    /// </summary>
     public class AddExceptionMiddleWare
     {
         private readonly RequestDelegate _onNext;

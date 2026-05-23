@@ -11,6 +11,12 @@ using static System.Net.WebRequestMethods;
 
 namespace GoorehInfrastructure.DbContextes
 {
+    /// <summary>
+    ///  1inja behtareh hick labda va ya linq neveshteh nasheh
+    ///  2 dbContext scoped hast va nemish beh tor mostagim on ro tazrig kard 
+    ///  beh ye lifetime singleton pass bayad beh sorat qir mostagim in kar ro anjam dad
+    ///  rah hal IServiceProvider hast va sakht scop
+    /// </summary>
     public class GoorehDbContext : DbContext
     {
         private readonly IHttpContextAccessor? _http;
@@ -97,7 +103,7 @@ namespace GoorehInfrastructure.DbContextes
                 .HasOne(x => x.AppUser)
                 .WithMany()
                 .HasForeignKey(x => x.AppUserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
             builder.Entity<UserNote>()
                 .HasOne(x => x.AppUser)
                 .WithMany()
@@ -112,6 +118,7 @@ namespace GoorehInfrastructure.DbContextes
             builder.Entity<UserProduct>()
                 .Property(p => p.ConcurrencyStamp)
                 .IsConcurrencyToken();
+    
 
         }
     }

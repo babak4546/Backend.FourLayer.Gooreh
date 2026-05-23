@@ -1,7 +1,10 @@
-﻿using GoorehApplication.RepositorysInterfaces;
+﻿using GoorehApi.Services.DeleteUserBackgroundService;
+using GoorehApplication.RepositorysInterfaces;
+using GoorehApplication.UnitOfWorkInterfaces;
 using GoorehDomain.Entities;
 using GoorehInfrastructure.DbContextes;
 using GoorehInfrastructure.Repositorys;
+using GoorehInfrastructure.UnitOfWorks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +24,11 @@ namespace GoorehApplication.Services.SecurityService
             builder.Services.AddScoped<UserNoteRepository>();
             builder.Services.AddScoped<IGenericRepository<UserContact>,GenericRepository<UserContact>>();
             builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>(); 
+            /// <summary>
+            /// AddHostedService migeh in class beh onvan yeh background service sabt besheh
+            /// </summary>
+            builder.Services.AddHostedService<DeleteUserBackgroundService>();
             builder.Services.AddCors(o => o.AddDefaultPolicy(builder =>
             builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
             builder.Services.AddDbContext<GoorehDbContext>(options =>
